@@ -156,8 +156,8 @@ kubectl label volumesnapshotclass <NOME_DA_SNAPSHOTCLASS> netbackup.veritas.com/
       namespace: <NAMESPACE_DA_INSTALACAO>
     type: Opaque
     stringData:
-      token: "<TOKEN_DE_AUTORIZACAO>"
-      fingerprint: "<IMPRESSAO_DIGITAL_SHA256>"
+      token: <TOKEN_DE_AUTORIZACAO>
+      fingerprint: <IMPRESSAO_DIGITAL_SHA256>
     ```
 2.  **Crie o `backupservercert.yaml`:**
     ```yaml
@@ -182,9 +182,9 @@ kubectl label volumesnapshotclass <NOME_DA_SNAPSHOTCLASS> netbackup.veritas.com/
     kubectl apply -f backupservercert.yaml
     ```
 
-#### **3.5. Adição do Cluster na Interface do NetBackup**
+#### 3.5. Adição do Cluster na Interface do NetBackup
 
-1.  **Colete as Credenciais do Cluster (Passo 2.1.h):** Agora que o operador está configurado, colete o token final e o certificado.
+1.  **Colete as Credenciais do Cluster:** Agora que o operador está configurado, colete o token final e o certificado.
     ```bash
     # Encontre o nome do secret
     SECRET_NAME=$(kubectl get secrets -n <NAMESPACE_DA_INSTALACAO> | grep backup-server-secret | awk '{print $1}')
