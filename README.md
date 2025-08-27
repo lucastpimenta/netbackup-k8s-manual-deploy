@@ -2,7 +2,23 @@
 
 Este guia fornece um passo a passo completo para a instalação e configuração **manual** do NetBackup Operator para Kubernetes. Todas as informações e comandos são baseados exclusivamente no documento oficial **NetBackup105\_AdminGuide\_Kubernetes.pdf**.
 
-### **Fase 1: Preparação e Pré-requisitos do Ambiente**
+## 📦 O que este Guia Faz
+* Detalha todos os pré-requisitos de ambiente, firewall e imagens de contêiner.
+* Organiza a coleta de todos os dados necessários antes da configuração.
+* Fornece os arquivos YAML (Secret e values.yaml) prontos para preenchimento.
+* Instrui sobre a execução da implantação via Helm e como verificar o sucesso da operação.
+* Resulta em um cluster Kubernetes totalmente integrado e pronto para ser gerenciado pelo Veritas NetBackup.
+
+## 🛠️ Tecnologias Envolvidas
+* Veritas NetBackup 10.5
+* Kubernetes (com suporte a APIs de Snapshot v1)
+* Helm v3
+* Docker (ou outra ferramenta de linha de comando para contêineres)
+
+## 🚀 Como Usar
+O processo é dividido em quatro fases: preparar o ambiente, coletar os dados, criar os arquivos e executar a implantação.
+
+### 1️⃣ **Fase 1: Preparação e Pré-requisitos do Ambiente**
 
 Esta fase é dedicada exclusivamente à preparação do seu ambiente para garantir que a instalação ocorra sem problemas.
 
@@ -25,7 +41,7 @@ Garanta que as seguintes regras de firewall estejam em vigor para permitir a com
 | Cluster Kubernetes | Servidores de Mídia | 1556 | TCP (Saída) | Certificados |
 | Cluster Kubernetes | Servidor Primário e de Mídia | 13724 | TCP (Bidirecional) | VNETD para movimentação de dados |
 
-### **Fase 2: Coleta de Dados para Configuração**
+### 2️⃣ **Fase 2: Coleta de Dados para Configuração**
 
 Nesta fase, vamos coletar e anotar todas as informações que serão usadas como variáveis nas fases de configuração e execução.
 
@@ -67,16 +83,16 @@ URLs completas que você definiu ao fazer `docker push`.
 **e. Informações do Servidor Primário:**
 
 **FQDN:** Nome de domínio completo do seu servidor.
+
 **Impressão Digital:** Na UI Web do NetBackup, vá para **Segurança \> Certificados \> Autoridade Certificadora**.
 
 **`<FQDN_DO_SERVIDOR_PRIMARIO>`** = \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
 **`<IMPRESSAO_DIGITAL_SHA256>`** = \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
-
 **f. Token de Autorização:**
 
-Na UI Web do NetBackup, vá para **Segurança \> Tokens** e crie um novo token.
+Na UI Web do NetBackup, vá para **Segurança \> Tokens** e use um token válido ou crie um novo token.
 
 **`<TOKEN_DE_AUTORIZACAO>`** = \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
@@ -90,7 +106,7 @@ Na UI Web do NetBackup, vá para **Segurança \> Tokens** e crie um novo token.
 
 **`<PORTA_DO_CLUSTER_K8S>`** = \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
-### **Fase 3: Implantação e Configuração Manual**
+### 3️⃣ **Fase 3: Implantação e Configuração Manual**
 
 Com os dados coletados, execute os passos de implantação e configuração.
 
@@ -201,7 +217,19 @@ kubectl label volumesnapshotclass <NOME_DA_SNAPSHOTCLASS> netbackup.veritas.com/
       * Na tela de credenciais, selecione **Adicionar credencial** e cole o **Token** e o **Certificado de CA** que você acabou de obter.
       * Conclua o assistente.
 
-### **Fase 4: Verificação Final**
+### 4️⃣ **Fase 4: Verificação Final**
 
   * Na UI do NetBackup, na tela de **Clusters Kubernetes**, o cluster recém-adicionado deve aparecer.
   * O status da descoberta deve mudar para **"Sucesso"** após alguns minutos, confirmando que a configuração manual foi bem-sucedida.
+
+## 🆘 Suporte
+
+Para suporte, comece verificando se você seguiu todas as instruções corretamente. Se o problema persistir, considere consultar a documentação do Oracle e do NetBackup para configurações adicionais.
+
+## 🌟 Contribuições
+
+Contribuições são sempre bem-vindas! Se você tem uma sugestão para melhorar este script, sinta-se à vontade para criar um pull request.
+
+## ✒️ Autor
+
+[Lucas Pimenta](https://github.com/lucastpimenta) - Trabalho Inicial
